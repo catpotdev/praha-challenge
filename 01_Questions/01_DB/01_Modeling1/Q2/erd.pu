@@ -1,0 +1,87 @@
+@startuml erd
+' PlantUML参考：https://www.gunshi.info/entry/2022/04/05/005934
+' 命名規則：https://qiita.com/genzouw/items/35022fa96c120e67c637
+
+skinparam linetype ortho
+
+entity "menus" as menus {
+  * menu_id
+  --
+  * name
+  * price
+  * category_id (categories)
+  created_at
+  updated_at
+}
+
+entity "setmenus" as setmenus {
+  * setmenu_id (menus)
+  --
+  * menu_id (menus)
+  created_at
+  updated_at
+}
+
+entity "categories" as categories {
+  * category_id
+  --
+  * category_name
+  created_at
+  updated_at
+}
+
+entity "customers" as customers {
+  * customer_id
+  --
+  * name
+  * phone_number
+  created_at
+  updated_at
+}
+
+entity "orders" as orders {
+  * order_id
+  --
+  * customer_id (customers)
+  * is_paid
+  created_at
+  updated_at
+}
+
+entity "orders_details" as orders_details {
+  * order_detail_id
+  --
+  * order_id (orders)
+  * menu_id (menus)
+  * quantity
+  created_at
+  updated_at
+}
+
+entity "options" as options {
+  * option_id
+  --
+  * name
+  * price
+  created_at
+  updated_at
+}
+
+entity "orders_options_details" as orders_options_details {
+  * order_option_detail_id
+  --
+  * order_detail_id (orders_details)
+  * option_id (options)
+  created_at
+  updated_at
+}
+
+customers ||--o{ orders
+orders ||--|{ orders_details
+menus ||--o{ orders_details
+menus }|-r-|| setmenus
+categories ||--o{ menus
+orders_details ||--o{ orders_options_details
+options ||--o{ orders_options_details
+
+@enduml
