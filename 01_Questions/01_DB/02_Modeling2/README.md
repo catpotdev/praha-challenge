@@ -80,7 +80,7 @@ from
   inner join users u
     on m.user_id = u.user_id
 where
-  and m.text like '%keyword%'
+  m.text like '%keyword%'
 ;
 ```
 
