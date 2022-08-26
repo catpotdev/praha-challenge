@@ -1,0 +1,66 @@
+@startuml erd
+' PlantUML参考：https://www.gunshi.info/entry/2022/04/05/005934
+' 命名規則：https://qiita.com/genzouw/items/35022fa96c120e67c637
+' 命名規則(中間テーブル)：https://qiita.com/tkawa/items/dc3e313021f32fd91ca6
+
+skinparam linetype ortho
+
+entity "users" as users {
+  * id
+  --
+  * name
+  * mail_address
+  * password
+}
+
+entity "workspaces" as workspaces {
+  * id
+  --
+  * name
+}
+
+entity "workspaces_participants" as workspaces_participants {
+  * id
+  --
+  * user_id (FK: users - id)
+  * workspace_id (FK: workspaces - id)
+  is_owner
+}
+
+entity "channels" as channels {
+  * id
+  --
+  * name
+  * workspace_id (FK: workspaces - id)
+}
+
+entity "channels_participants" as channels_participants {
+  * id
+  --
+  * user_id (FK: users - id)
+  * channel_id (FK: channels - id)
+  is_owner
+}
+
+entity "messages" as messages {
+  * id
+  --
+  * channel_id (FK: channels - id)
+  * user_id (FK: users - id)
+  * text
+  * posted_at
+  edited_at
+  reply_to (message - id)
+}
+
+workspaces ||-r-o{ channels
+workspaces ||-d-o{ workspaces_participants
+channels ||-d-o{ channels_participants
+
+users ||-u-o{ channels_participants
+users ||-u-o{ workspaces_participants
+
+users ||--o{ messages
+channels ||--o{ messages
+
+@enduml
