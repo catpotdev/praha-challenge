@@ -7,7 +7,7 @@
   - 当初はremindersテーブルにregistered_at(リマインダー登録日時; date)とdays(日; int)を持たせようとした。
     - これだと無理orバッチ側のプログラムが複雑になると思った。
       - 毎日とX日おきは簡単だが、毎週X曜日と毎月X日のバッチ抽出が厳しそう。
-  - frequency(送信頻度; int)とfrequency_unit(頻度の単位)を持たせる。
+  - frequency(送信頻度; int)とfrequency_unit(頻度の単位)を持たせる。これらとregistered_atを合わせて見る。
     - 毎日 → {frequency: 1, frequency_unit: day}
     - 3日おき → {frequency: 3, frequency_unit: day}
     - 毎週水曜日 → {frequency: 3, frequency_unit: week}
