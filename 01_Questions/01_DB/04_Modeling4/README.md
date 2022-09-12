@@ -2,6 +2,52 @@
 
 ![Q1_ER図](./erd.png)
 
+```
+Table workspaces {
+  id varchar [pk]
+  name varchar
+  access_token varchar
+}
+
+Table users {
+  id   int [pk]
+  name varchar
+  workspace_id varchar  [ref: > workspaces.id]
+}
+
+Table frequency_units {
+  id int [pk]
+  name varchar
+}
+
+Table reminders {
+  id   int [pk]
+  text varchar
+  assigned_from int [ref: > users.id]
+  frequency int
+  frequency_unit_id int [ref: > frequency_units.id]
+}
+
+Table reminder_assigns {
+  id int [pk]
+  user_id int [ref: > users.id]
+  reminder_id int [ref: > reminders.id]
+}
+
+Table reminder_sent_logs {
+  id int [pk]
+  reminder_assign_id int [ref: > reminder_assigns.id]
+  sent_at date
+}
+
+Table reminder_done_logs {
+  id int [pk]
+  reminder_assign_id int [ref: > reminder_assigns.id]
+  done_at date
+}
+```
+
+
 ## 考えたこと
 - 送信頻度をどのように持たせるか？
   - 当初はremindersテーブルにregistered_at(リマインダー登録日時; date)とdays(日; int)を持たせようとした。
