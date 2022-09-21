@@ -45,7 +45,7 @@ Table directories_contents {
 ```
 
 - directoryの階層構造はdirectories_treesを閉包テーブルとして利用して持たせる。
-  - /A/B/Cのようにパスを直接書き下すのは気持ち悪い(アンチパターン？ジェイウォーク調べる)
+  - /A/B/Cのようにパスを直接書き下すのは気持ち悪い([ジェイウォーク](../06_AntiPattern1/README.md))
 
 - documentsにdirectory_idカラムを持たせるか迷ったが、directories_contentsに外出し。
   - documents(ドキュメント一覧)の持つべき情報として、所属ディレクトリは含まれるのだろうか・・・と違和感があった。
