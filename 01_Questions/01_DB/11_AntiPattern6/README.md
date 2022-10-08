@@ -55,7 +55,7 @@ from
 
 SQLアンチパターンには上記のように記載されているが、最新版のMySQLではCHECK制約のDROP、ADDをALTER TABLEで行えるらしい。
 
-3. 限定される値の変更
+2. 限定される値の変更
 
 例えば、上記の例で`studying`を1年生`1st grade`, 2年生`2nd grade`, 3年生`3rd grade`に分けたくなった場合に、既に`studying`がセットされている行はどのようにすればよいか。
 
